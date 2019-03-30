@@ -1,0 +1,25 @@
+---
+- hosts: local
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: "count"
+      prompt: " how many webservers you want to install?"
+  tasks:
+    - include: tasks/security_group.yml
+    - include: tasks/launch_ec2_webserver.yml
+    - include: tasks/add_instance_to_hosts_webserver.yml
+    - include: tasks/add_tag.yml
+    - include: tasks/check_connection.yml
+    #- include: tasks/ssh_to_ec2.yml
+
+- name: install pyhton dependencies
+  hosts: webservers
+  remote_user: ubuntu
+  become: yes
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python'
+      raw: 'sudo apt-get -y install python'
+  tasks:
+    - include: tasks/install_apache2.yml

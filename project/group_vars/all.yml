@@ -1,0 +1,7 @@
+instance_type: t2.micro
+security_group: ansible-aws-webserver
+image: ami-0a313d6098716f372
+keypair: MYEC2Keypair
+region: us-east-1
+aws_access_key: "AKIATB4LBW2HBRQXGKN3"
+aws_secret_key: "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"
